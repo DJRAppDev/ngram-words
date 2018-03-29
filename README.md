@@ -4,6 +4,6 @@ A project that should do something with n-gram, probably word prediction/sentenc
 * Derek Qu
 * James Weng
 * Ryan Xu
-* Jenny Huang(?)  
+* Ching Lam
 
 ### Let's hope this works?!?! 
