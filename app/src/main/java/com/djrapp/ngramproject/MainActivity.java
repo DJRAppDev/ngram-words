@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import org.w3c.dom.Text;
@@ -17,7 +18,7 @@ import org.w3c.dom.Text;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
-    private FirebaseAnalytics mFirebaseAnalytics;
+    private FirebaseDatabase database;
     private TextView lyrics;
     private Button generateBT, textToSpeechBT;
     private TextToSpeech tts;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        database = FirebaseDatabase.getInstance();
         lyrics = findViewById(R.id.lyrics);
         generateBT = findViewById(R.id.generate);
         textToSpeechBT = findViewById(R.id.toSpeech);
