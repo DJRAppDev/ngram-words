@@ -13,10 +13,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 
 import org.w3c.dom.Text;
 
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     private TextView lyrics;
     private Button generateBT, textToSpeechBT;
     private TextToSpeech tts;
+    private Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,12 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         lyrics = findViewById(R.id.lyrics);
         generateBT = findViewById(R.id.generate);
         textToSpeechBT = findViewById(R.id.toSpeech);
+        gson = new Gson();
 
         tts = new TextToSpeech(MainActivity.this, MainActivity.this);
         generateBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
         textToSpeechBT.setOnClickListener(new View.OnClickListener() {
