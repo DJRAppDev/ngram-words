@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     private Button generateBT, textToSpeechBT;
     private TextToSpeech tts;
     private ArrayList<String> lyricList, frequencyList, percentageList;
+    private String song;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +44,16 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         frequencyList = new ArrayList<>();
         percentageList = new ArrayList<>();
 
+        song = new String();
+
         tts = new TextToSpeech(MainActivity.this, MainActivity.this);
+
         generateBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                song+=lyricList.get((int)(Math.random()*lyricList.size()));
+                song = generateSong(song);
+                lyrics.setText(song);
             }
         });
         textToSpeechBT.setOnClickListener(new View.OnClickListener() {
@@ -102,4 +108,15 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             Log.d("Abc", arrList.get(i));
         }
     }
+
+    public String generateSong(String song) {
+        String result = "";
+        result+=song;
+        for (int i = 0; i < 20; i++) {
+            String last_word = song.split(" ")[song.split(" ").length-1];
+
+        }
+        return result;
+    }
+
 }
