@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     private TextView lyrics;
     private Button generateBT, textToSpeechBT;
     private TextToSpeech tts;
-    private ArrayList<String> lyricList, frequencyList, percentageList;
+    private static ArrayList<String> lyricList, frequencyList, percentageList;
     private String song;
 
     @Override
@@ -51,8 +51,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         generateBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                song+=lyricList.get((int)(Math.random()*lyricList.size()));
-                song = generateSong(song);
+                song = generateSong(song,lyricList,percentageList);
                 lyrics.setText(song);
             }
         });
@@ -76,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                     percentageList.add(percentage);
                 }
                 //Run methods after the for loop
+                song+=lyricList.get((int)(Math.random()*lyricList.size()))+" ";
             }
 
             @Override
@@ -109,12 +109,33 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         }
     }
 
-    public String generateSong(String song) {
+    public String generateSong(String song, ArrayList<String> lyricList, ArrayList<String> percentageList) {
         String result = "";
         result+=song;
-        for (int i = 0; i < 20; i++) {
-            String last_word = song.split(" ")[song.split(" ").length-1];
-
+        for (int i = 0; i < 1; i++) {
+            String last_word = result.split(" ")[result.split(" ").length-1];
+            ArrayList<String> nextWords = new ArrayList<String>();
+            ArrayList<Double> nextProbs = new ArrayList<Double>();
+            double sumWeight = 0;
+            for (int j = 0; j < lyricList.size(); j++) {
+                if (lyricList.get(j).split(" ")[0].equals(last_word)) {
+                    nextWords.add(lyricList.get(j));
+                    nextProbs.add(Double.parseDouble(percentageList.get(j)));
+                    sumWeight+=Double.parseDouble(percentageList.get(j));
+                }
+            }
+            double randomNumber = Math.random()*sumWeight;
+            ArrayList<Double> probabilities = new ArrayList<>();
+            for (int k = 0; k < nextProbs.size(); k++) {
+                probabilities.add(Math.abs(randomNumber-nextProbs.get(k)));
+            }
+            int random = 0;
+            for (int l = 0; l < probabilities.size(); l++) {
+                if (probabilities.get(random) > probabilities.get(i)) {
+                    random = i;
+                }
+            }
+            result+=nextWords.get(random);
         }
         return result;
     }
