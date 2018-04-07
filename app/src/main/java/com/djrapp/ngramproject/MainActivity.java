@@ -117,18 +117,18 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         for (int i = 0; i < 1; i++) {
             String last_word = result.split(" ")[result.split(" ").length-1];
             ArrayList<String> nextWords = new ArrayList<String>();
-            //ArrayList<Double> nextProbs = new ArrayList<Double>();
-            //double sumWeight = 0;
+            ArrayList<Double> nextProbs = new ArrayList<Double>();
+            double sumWeight = 0;
             for (int j = 0; j < /*lyricList.size()*/1000; j++) {
                 if (lyricList.get(j).split(" ")[0].equals(last_word)) {
                     nextWords.add(lyricList.get(j));
-                    //nextProbs.add(Double.valueOf(percentageList.get(j)));
-                    //sumWeight+=Double.valueOf(percentageList.get(j));
+                    nextProbs.add(Double.valueOf(percentageList.get(j)));
+                    sumWeight+=Double.valueOf(percentageList.get(j));
                 }
             }
-//            double randomNumber = Math.random()*sumWeight;
-//            ArrayList<Double> probabilities = new ArrayList<>();
-            /*for (int k = 0; k < nextProbs.size(); k++) {
+            double randomNumber = Math.random()*sumWeight;
+            ArrayList<Double> probabilities = new ArrayList<>();
+            for (int k = 0; k < nextProbs.size(); k++) {
                 probabilities.add(Math.abs(randomNumber-nextProbs.get(k)));
             }
             int random = 0;
@@ -136,10 +136,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 if (probabilities.get(random) > probabilities.get(i)) {
                     random = l;
                 }
-            }*/
+            }
             if (nextWords.size() > 0) {
-                result += nextWords.get((int) (Math.random() * nextWords.size())).split(" ",2)[1]+" ";
-                //result+=nextWords.get(random);
+//                result += nextWords.get((int) (Math.random() * nextWords.size())).split(" ",2)[1]+" ";
+                result+=nextWords.get(random).split(" ",2)[1]+" ";
             }
         }
         return result;
