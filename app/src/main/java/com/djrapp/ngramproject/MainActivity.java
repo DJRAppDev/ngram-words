@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         generateBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                song = generateSong(song,lyricList,percentageList);
                 lyrics.setText(song);
             }
         });
@@ -76,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 }
                 //Run methods after the for loop
                 song+=lyricList.get((int)(Math.random()*lyricList.size()))+" ";
+                //TODO: Fix the generateSong method so this can be uncommented.
+                //song = generateSong(song,lyricList,percentageList);
             }
 
             @Override
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         }
     }
 
+    //TODO: Optimize method because Android can't handle it
     public String generateSong(String song, ArrayList<String> lyricList, ArrayList<String> percentageList) {
         String result = "";
         result+=song;
@@ -117,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             ArrayList<String> nextWords = new ArrayList<String>();
             ArrayList<Double> nextProbs = new ArrayList<Double>();
             double sumWeight = 0;
-            for (int j = 0; j < lyricList.size(); j++) {
+            for (int j = 0; j < /*lyricList.size()*/ 1; j++) {
                 if (lyricList.get(j).split(" ")[0].equals(last_word)) {
                     nextWords.add(lyricList.get(j));
                     nextProbs.add(Double.parseDouble(percentageList.get(j)));
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             int random = 0;
             for (int l = 0; l < probabilities.size(); l++) {
                 if (probabilities.get(random) > probabilities.get(i)) {
-                    random = i;
+                    random = l;
                 }
             }
             result+=nextWords.get(random);
