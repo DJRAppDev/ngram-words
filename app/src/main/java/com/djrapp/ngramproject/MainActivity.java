@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         generateBT = findViewById(R.id.generate);
         textToSpeechBT = findViewById(R.id.toSpeech);
 
-        lyricList = new ArrayList<>();
-        frequencyList = new ArrayList<>();
-        percentageList = new ArrayList<>();
+        lyricList = new ArrayList<String>();
+        frequencyList = new ArrayList<String>();
+        percentageList = new ArrayList<String>();
 
         song = new String();
 
@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         generateBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                song+=lyricList.get((int)(Math.random()*lyricList.size()))+" ";
+                //TODO: Fix the generateSong method so this can be uncommented.
+                song = generateSong(song);
                 lyrics.setText(song);
             }
         });
@@ -74,9 +77,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                     percentageList.add(percentage);
                 }
                 //Run methods after the for loop
-                song+=lyricList.get((int)(Math.random()*lyricList.size()))+" ";
-                //TODO: Fix the generateSong method so this can be uncommented.
-                //song = generateSong(song,lyricList,percentageList);
             }
 
             @Override
@@ -111,24 +111,24 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     }
 
     //TODO: Optimize method because Android can't handle it
-    public String generateSong(String song, ArrayList<String> lyricList, ArrayList<String> percentageList) {
+    public String generateSong(String song) {
         String result = "";
         result+=song;
         for (int i = 0; i < 1; i++) {
             String last_word = result.split(" ")[result.split(" ").length-1];
             ArrayList<String> nextWords = new ArrayList<String>();
-            ArrayList<Double> nextProbs = new ArrayList<Double>();
-            double sumWeight = 0;
-            for (int j = 0; j < /*lyricList.size()*/ 1; j++) {
+            //ArrayList<Double> nextProbs = new ArrayList<Double>();
+            //double sumWeight = 0;
+            for (int j = 0; j < /*lyricList.size()*/1000; j++) {
                 if (lyricList.get(j).split(" ")[0].equals(last_word)) {
                     nextWords.add(lyricList.get(j));
-                    nextProbs.add(Double.parseDouble(percentageList.get(j)));
-                    sumWeight+=Double.parseDouble(percentageList.get(j));
+                    //nextProbs.add(Double.valueOf(percentageList.get(j)));
+                    //sumWeight+=Double.valueOf(percentageList.get(j));
                 }
             }
-            double randomNumber = Math.random()*sumWeight;
-            ArrayList<Double> probabilities = new ArrayList<>();
-            for (int k = 0; k < nextProbs.size(); k++) {
+//            double randomNumber = Math.random()*sumWeight;
+//            ArrayList<Double> probabilities = new ArrayList<>();
+            /*for (int k = 0; k < nextProbs.size(); k++) {
                 probabilities.add(Math.abs(randomNumber-nextProbs.get(k)));
             }
             int random = 0;
@@ -136,10 +136,12 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 if (probabilities.get(random) > probabilities.get(i)) {
                     random = l;
                 }
+            }*/
+            if (nextWords.size() > 0) {
+                result += nextWords.get((int) (Math.random() * nextWords.size())).split(" ",2)[1]+" ";
+                //result+=nextWords.get(random);
             }
-            result+=nextWords.get(random);
         }
         return result;
     }
-
 }
