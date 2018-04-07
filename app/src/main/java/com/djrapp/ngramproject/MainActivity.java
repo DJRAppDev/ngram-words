@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             @Override
             public void onClick(View view) {
                 song+=lyricList.get((int)(Math.random()*lyricList.size()))+" ";
-                //TODO: Fix the generateSong method so this can be uncommented.
                 song = generateSong(song);
                 lyrics.setText(song);
             }
@@ -110,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         }
     }
 
-    //TODO: Optimize method because Android can't handle it
     public String generateSong(String song) {
         String result = "";
         result+=song;
@@ -119,8 +117,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             ArrayList<String> nextWords = new ArrayList<String>();
             ArrayList<Double> nextProbs = new ArrayList<Double>();
             double sumWeight = 0;
-            for (int j = 0; j < /*lyricList.size()*/1000; j++) {
-                if (lyricList.get(j).split(" ")[0].equals(last_word)) {
+            for (int j = 0; j < lyricList.size(); j++) {
+                if (lyricList.get(j) == null || lyricList.get(j).indexOf(" ") < 0) {
+                }
+                else if (lyricList.get(j).split(" ")[0].equals(last_word)) {
                     nextWords.add(lyricList.get(j));
                     nextProbs.add(Double.valueOf(percentageList.get(j)));
                     sumWeight+=Double.valueOf(percentageList.get(j));
