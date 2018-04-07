@@ -1,5 +1,5 @@
 # App Development n-gram project
-A project that should do something with n-gram, probably word prediction/sentence finishers  
+An app that generates lyrics based on a corpus of Ed Sheeran lyrics.
 ## Contributors  
 * Derek Qu
 * James Weng
