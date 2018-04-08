@@ -6,4 +6,4 @@ An app that generates lyrics based on a corpus of Ed Sheeran lyrics.
 * Ryan Xu
 * Ching Lam
 
-### Let's hope this works?!?! 
+### Let's hope this works?!?! (UPDATE: IT WORKS! HOORAY!)
