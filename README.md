@@ -1,10 +1,11 @@
 # App Development n-gram project
 An app that generates lyrics based on a corpus of Ed Sheeran lyrics.
-## Contributors  
+## Contributors
+* Ching Lam
 * Derek Qu
 * James Weng
 * Ryan Xu
-* Ching Lam
+* Jenny Huang
 ## How do I use this?
 * Open the app
 * Click the "Generate" button a few times to generate lines of lyrics based on Ed Sheeran
